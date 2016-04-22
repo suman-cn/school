@@ -14,6 +14,9 @@ class School extends CI_Controller {
         $this->load->helper('form');
         $this->load->library('session');
         $this->load->model('model_school');
+        if (!$this->session->userdata('super_admin')) {
+            redirect('super-admin-login/login');
+        }
     }
 
   	public function registerSchool()

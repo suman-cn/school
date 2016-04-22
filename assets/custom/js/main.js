@@ -47,6 +47,19 @@ $( "#register_form" ).submit(function( event ) {
     }
 });
 
+$( "#master_password_change_form" ).submit(function( event ) {
+    var password = $("#new_password").val();
+    var retype = $("#retype_password").val();
+    if(password != retype){
+        $( ".alert-warning" ).css('display', 'block');
+        $( ".alert-warning" ).html('<strong>Warning!</strong> Password and retype password not match.');
+        return false;
+    }else{
+        $( ".alert-warning" ).css('display', 'none');
+        return true;
+    }
+});
+
 
 
 function changeStatus(id, table){

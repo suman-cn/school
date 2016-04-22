@@ -39,7 +39,6 @@
         <!-- BEGIN LOGIN -->
         <div class="content">
             <!-- BEGIN LOGIN FORM -->
-            <form class="form-vertical login-form" action="" method="post">
             <?php
                 $attributes = array('class' => 'form-vertical login-form');
                 echo form_open('', $attributes);

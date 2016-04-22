@@ -12,17 +12,18 @@ class Dashboard extends CI_Controller {
         parent::__construct();
         $this->load->helper('url');
         $this->load->helper('form');
+        $this->load->helper('html');
         $this->load->library('session');
-        if (!$this->session->userdata('super_admin')) {
-            redirect('super-admin-login/login');
+        if (!$this->session->userdata('school_admin')) {
+            redirect('school-admin-login/login');
         }
     }
 
   	public function index()
   	{
-        $session_details = $this->session->userdata('super_admin');
-        $data['users_type'] = $session_details->users_type;
-        $data['users_nikname'] = $session_details->users_nikname;
+        $session_details = $this->session->userdata('school_admin');
+        $data['logged_id'] = $session_details->logged_id;
+        $data['school'] = $session_details->school;
   		  $this->load->view('dashboard', $data);
   	}
 }

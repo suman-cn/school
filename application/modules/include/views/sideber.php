@@ -56,6 +56,25 @@
                         
                     </ul>
                 </li>
+                <li <?php if (strpos($url, "settings") !== false){ echo 'class="active"'; } ?>>
+                    <a href="javascript:;">
+                        <i class="icon-cogs"></i> 
+                        <span class="title">Settings </span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li >
+                            <a href="<?php echo base_url('super-admin-settings/settings/masterPasswordChange'); ?>">
+                                Master password
+                            </a>
+                        </li>
+                        <li >
+                            <a href="<?php echo base_url('super-admin-settings/settings/superAdminPasswordChange'); ?>">
+                                Password change
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li <?php if (strpos($url, "page") !== false){ echo 'class="active"'; } ?>>
                     <a href="javascript:;">
                         <i class="icon-cogs"></i> 

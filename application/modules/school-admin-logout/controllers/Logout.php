@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dashboard extends CI_Controller {
+class Logout extends CI_Controller {
 
   	/**
   	 * Login form of super admin.
@@ -13,16 +13,12 @@ class Dashboard extends CI_Controller {
         $this->load->helper('url');
         $this->load->helper('form');
         $this->load->library('session');
-        if (!$this->session->userdata('super_admin')) {
-            redirect('super-admin-login/login');
-        }
     }
 
   	public function index()
   	{
-        $session_details = $this->session->userdata('super_admin');
-        $data['users_type'] = $session_details->users_type;
-        $data['users_nikname'] = $session_details->users_nikname;
-  		  $this->load->view('dashboard', $data);
+        $this->session->unset_userdata('school_admin');
+        $this->session->sess_destroy();
+        redirect('school-admin-login/login');
   	}
 }
