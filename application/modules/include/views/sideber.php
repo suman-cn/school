@@ -75,6 +75,44 @@
                         </li>
                     </ul>
                 </li>
+                <li <?php if (strpos($url, "session") !== false){ echo 'class="active"'; } ?>>
+                    <a href="javascript:;">
+                        <i class="icon-cogs"></i> 
+                        <span class="title">Session Year </span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li >
+                            <a href="<?php echo base_url('super-admin-session-year/session_year/addSession'); ?>">
+                                Add session
+                            </a>
+                        </li>
+                        <li >
+                            <a href="<?php echo base_url('super-admin-session-year/session_year/viewBatchSession'); ?>">
+                                Show Batch Session
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li <?php if (strpos($url, "session") !== false){ echo 'class="active"'; } ?>>
+                    <a href="javascript:;">
+                        <i class="icon-cogs"></i> 
+                        <span class="title">Exam Type </span>
+                        <span class="arrow "></span>
+                    </a>
+                    <ul class="sub-menu">
+                        <li >
+                            <a href="<?php echo base_url('super-admin-exam-type/exam_type'); ?>">
+                                Add Exam Type
+                            </a>
+                        </li>
+                        <li >
+                            <a href="<?php echo base_url('super-admin-exam-type/exam_type/viewExamTypes'); ?>">
+                                Show Exam Type
+                            </a>
+                        </li>
+                    </ul>
+                </li>
                 <li <?php if (strpos($url, "page") !== false){ echo 'class="active"'; } ?>>
                     <a href="javascript:;">
                         <i class="icon-cogs"></i> 

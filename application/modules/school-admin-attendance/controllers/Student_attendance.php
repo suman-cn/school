@@ -21,7 +21,7 @@ class Student_attendance extends CI_Controller {
         }
     }
 
-  	public function index()
+  	public function giveAttendance( $attendance_month = NULL )
   	{
         $session_details = $this->session->userdata('school_admin');
         $data['logged_id'] = $session_details->logged_id;
@@ -42,24 +42,32 @@ class Student_attendance extends CI_Controller {
                     $this->db->update( 'student_attendance', $insert_data, "id = " . $checkMonthAttendance->id);
                 }
             }
-            redirect('school-admin-attendance/student_attendance');
+            redirect('school-admin-attendance/student_attendance/giveAttendance/'.$attendance_month);
         }else{
 
-            $recent_month = '2016-04';
+            if( $attendance_month != NULL ){
+                $present_date_array = explode("-",$attendance_month);
+                $next_date = $present_date_array[0]."-".$present_date_array[1]."-01";
+                $data['present_month'] = $attendance_month;
+            }else{
+                $present_date = date('Y-m-d', time());
+                $present_date_array = explode("-",$present_date);
+                $next_date = $present_date_array[0]."-".$present_date_array[1]."-01";
+                $data['present_month'] = date('Y-m', strtotime($next_date));
+            }
+            $present_month_date[$next_date] = $next_date."<br>".date('D', strtotime($next_date));
+            
+            $previous_month_date = date('Y-m-d', strtotime($next_date .' -1 day'));
+            $data['previous_month'] = date('Y-m', strtotime($previous_month_date));
+
+            $date_variable = 1;
+
             $data['school_students'] = $this->model_student_register->showAllStudent($data['logged_id']);
             if(!empty($data['school_students'])){
                 foreach( $data['school_students'] as $student ){
-                    $attendance[$student->id] = $this->model_school_attendance->showStudentAttendance( $student->id, $recent_month );
+                    $attendance[$student->id] = $this->model_school_attendance->showStudentAttendance( $student->id, $data['present_month'] );
                 }
             }
-            //print_r($attendance); die;
-            $present_date = date('Y-m-d', time());
-            $present_date_array = explode("-",$present_date);
-            $next_date = $present_date_array[0]."-".$present_date_array[1]."-01";
-            $present_month_date[$next_date] = $next_date."<br>".date('D', strtotime($next_date));
-            $data['present_month'] = date('Y-m', strtotime($next_date));
-
-            $date_variable = 1;
 
             while($date_variable == 1) {
 
@@ -70,14 +78,17 @@ class Student_attendance extends CI_Controller {
                 
                 if( ($present_date_array[2] - $current_date_array[2]) != 1 ){
                     $date_variable = 2;
+                    $first_date_next_month = $next_date;
                     break;
                 }else{
                     $present_month_date[$next_date] = $next_date."<br>".$next_ber;
                     $date_variable = 1;
                 }
             }
+
             $data['attendance'] = $attendance;
             $data['present_month_date'] = $present_month_date;
+            $data['next_month'] = date('Y-m', strtotime($first_date_next_month));
       		  $this->load->view('student_attendance_entry', $data);
         }
   	}

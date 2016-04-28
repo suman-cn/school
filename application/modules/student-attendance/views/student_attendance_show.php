@@ -8,24 +8,25 @@
         ?>
     </tr>
 <?php
-    echo form_open_multipart( '', array('class' => 'horizontal-form'), array('hid_month' => $present_month) );
-    foreach( $school_students as $student ){
-        if(!empty($attendance[$student->id])){
-            $already_attend = (array)json_decode($attendance[$student->id]->attendance);
+        if(!empty($attendance->attendance)){
+            $already_attend = (array)json_decode($attendance->attendance);
         }else{
             $already_attend = array();
         }
         echo "<tr>";
-        echo "<td>".$student->student_name."</td>";
+        echo "<td>Student Name</td>";
         foreach( $present_month_date as $date_id => $date){
+            echo "<td>";
+            if(array_key_exists( $date_id, $already_attend )){
+                echo "Present"; 
+            }else{
+                echo "Absent";
+            } 
             ?>
-            <td><input type = "checkbox" name = 'attendance[<?= $student->id; ?>][<?= $date_id; ?>]' value = "1" <?php if(array_key_exists( $date_id, $already_attend )){ echo "checked"; } ?> ></td>
+            </td>
             <?php
         }
         echo "</tr>";
-    }
-    echo form_submit('mysubmit', 'Update Attendance');
-    echo form_close();
 ?>
 <br>
 <?= anchor('school-admin-attendance/student_attendance/giveAttendance/'.$previous_month, 'Previous month', array('title' => 'Previous month')); ?>

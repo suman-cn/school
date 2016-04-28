@@ -3,7 +3,7 @@
 <?php
     $attributes = array(
                 'name'        => 'student_id',
-                'placeholder' => 'School Id',
+                'placeholder' => 'Student Id',
               );
     echo form_input($attributes);
 ?>
